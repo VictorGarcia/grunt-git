@@ -237,4 +237,25 @@ module.exports = function (grunt) {
             done(!err);
         });
     });
+    
+    grunt.registerMultiTask('gitpull', 'Pull the current branch.', function () {
+        var options = this.options({
+            branch: ''
+        });
+
+        var done = this.async();
+
+        var args = ["pull"];
+        if (options.branch && options.message.trim() !== '') {
+            args.push("origin");
+            args.push(options.branch);
+        }
+
+        grunt.util.spawn({
+            cmd: "git",
+            args: args
+        }, function (err) {
+            done(!err);
+        });
+    });
 };
